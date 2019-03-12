@@ -1,0 +1,36 @@
+.
+├── Desktop -> /home/ad/home/k/kodisto/Desktop
+├── Documents -> /home/ad/home/k/kodisto/Documents
+├── Downloads -> /home/ad/home/k/kodisto/Downloads
+├── kurssit
+│   └── _ot2019
+│       └── viikko1
+│           └── Unicafe
+│               ├── pom.xml
+│               └── src
+│                   ├── main
+│                   │   ├── java
+│                   │   │   └── com
+│                   │   │       └── mycompany
+│                   │   │           └── unicafe
+│                   │   │               ├── Kassapaate.java
+│                   │   │               ├── Maksukortti.java
+│                   │   │               └── Paaohjelma.java
+│                   │   └── resources
+│                   └── test
+│                       └── java
+│                           └── com
+│                               └── mycompany
+│                                   └── unicafe
+│                                       └── MaksukorttiTest.java
+├── Music
+├── NetBeansProjects
+│   └── # PROJECTS REMOVED #
+├── Pictures
+├── Public
+├── Templates
+├── tmc-langs.log
+├── Videos
+└── Z-drive -> /home/ad/fshome3/u3/k/kodisto
+
+50 directories, 30 files

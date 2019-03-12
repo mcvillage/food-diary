@@ -1,0 +1,21 @@
+commit cc7a392932e8f60563a80e6e2923dcab357e0090
+Author: Kodisto Valtteri M <kodisto@melkinpaasi.cs.helsinki.fi>
+Date:   Mon Mar 11 22:14:37 2019 +0200
+
+    Removed file1 and renamed file2
+
+ file1  | 0
+ file2  | 0
+ file22 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 66108d4552381a0d0554262e0c215721870a4cd5
+Author: Kodisto Valtteri M <kodisto@melkinpaasi.cs.helsinki.fi>
+Date:   Mon Mar 11 22:09:47 2019 +0200
+
+    Added file 1, 2 and 3
+
+ file1 | 0
+ file2 | 0
+ file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
