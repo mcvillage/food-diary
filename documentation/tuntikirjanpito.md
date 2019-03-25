@@ -1,8 +1,9 @@
 # Työaikakirjanpito
 
-| päivä | aika	| mitä tein  |
+| Päivä | Aika	| Mitä tein  |
 | - | - | - |
-| 19.3 | 1 | tutustuin Finelin API:in |
-| 20.3	| 1	| vaatimusmäärittely |	
-| 20.3. | 1	| käyttöliittymän suunnittelu |
+| 19.3 | 1 | Tutustuin Finelin API:in |
+| 20.3	| 1	| Vaatimusmäärittely |	
+| 20.3. | 1	| Käyttöliittymän suunnittelu |
+| 25.3 | 2 | Ruokien hakutoiminnallisuus |
 | yht   | 3 | | 
