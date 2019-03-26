@@ -2,7 +2,7 @@
 # Project specific excludes
 #
 laskarit/viikko2/Maksukortti/nbproject/private/
-
+.factorypath
 tomcat
 
 #
@@ -56,3 +56,4 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 /laskarit/viikko2/Unicafe/nbproject/
+/nbproject/

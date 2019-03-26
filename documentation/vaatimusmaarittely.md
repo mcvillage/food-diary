@@ -22,3 +22,4 @@ Ruokapäiväkirjasta voi siirtyä valitun päivän yhteenvetoon.
 - Hakupalkkiin autocomplete -tyylinen totetus (tämä voisi olla hyvä toteuttaa ihan perusversiossa)
 - Ruokapäiväkirjassa olevan elintarvikkeen määrän (paino, tilavuus,...) muuttaminen
 - Ruokapäiväkirjassa olevien ruokien jaoettelu aamupalaan, lounaaseen, välipalaan, päivälliseen tai iltapalaan
+- Enemmän ravintoaineita huomioon
