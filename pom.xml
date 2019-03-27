@@ -61,7 +61,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ui.Main</mainClass>
+                            <mainClass>ui.FoodDiaryUI</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

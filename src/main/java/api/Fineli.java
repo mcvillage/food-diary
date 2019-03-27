@@ -16,6 +16,7 @@ import org.json.JSONObject;
 public class Fineli {
     
     public static List<Food> search(String keyword) throws IOException {
+        keyword = keyword.replaceAll("\\s+", "%20");
         String url = "https://fineli.fi/fineli/api/v1/foods?q=" + keyword;
         InputStream is = new URL(url).openStream();
         

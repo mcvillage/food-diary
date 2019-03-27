@@ -7,4 +7,5 @@
 | 20.3. | 1	| Käyttöliittymän suunnittelu |
 | 25.3 | 2 | Ruokien hakutoiminnallisuus |
 | 26.3 | 1 | Fineli API testit |
-| yht   | 6 | | 
+| 27.3 | 1 | Hakutoiminnallisuus GUI |
+| yht   | 7 | | 
