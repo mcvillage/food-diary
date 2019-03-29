@@ -8,4 +8,5 @@
 | 25.3 | 2 | Ruokien hakutoiminnallisuus |
 | 26.3 | 1 | Fineli API testit |
 | 27.3 | 1 | Hakutoiminnallisuus GUI |
-| yht   | 7 | | 
+| 29.3 | 2 | Menu & ravintoainenäkymä |
+| yht   | 9 | | 

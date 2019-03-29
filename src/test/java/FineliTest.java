@@ -23,13 +23,7 @@ public class FineliTest {
     @Test
     public void searchReturnsFoodList() {
         boolean found = false;
-
-        try {
-            foodList = Fineli.search("omena");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
+        foodList = Fineli.search("omena");
 
         for (Food food : foodList) {
             // Omena-kaurahiutalepaistos
@@ -42,13 +36,7 @@ public class FineliTest {
     @Test
     public void searchWithUnknownFoodReturnsEmptyList() {
         foodList.add(new Food());
-        
-        try {
-            foodList = Fineli.search("aFoodThatDefinitelyDoesNotExist");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
+        foodList = Fineli.search("aFoodThatDefinitelyDoesNotExist");
         
         assertEquals(0, foodList.size());
     }

@@ -10,24 +10,34 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Fineli {
     
-    public static List<Food> search(String keyword) throws IOException {
+    public static List<Food> search(String keyword) {
         keyword = keyword.replaceAll("\\s+", "%20");
         String url = "https://fineli.fi/fineli/api/v1/foods?q=" + keyword;
-        InputStream is = new URL(url).openStream();
         
         try {
+            InputStream is = new URL(url).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonString = readAll(rd);
             List<Food> foodList = convertToFoodList(new JSONArray(jsonString));
-            return foodList;
-        } finally {
             is.close();
+            return foodList;
+        } catch (IOException ex) {
+            System.out.println("Error in Fineli search");
+            ex.printStackTrace();
+            return new ArrayList<>();
         }
+    }
+    
+    public static ObservableList<Food> searchObservable(String keyword) {
+        List<Food> foodList = search(keyword);
+        return FXCollections.observableArrayList(foodList);
     }
     
     private static String readAll(Reader rd) throws IOException {
