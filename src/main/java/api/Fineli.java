@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,21 +51,20 @@ public class Fineli {
     }
 
     private static Food convertToFood(JSONObject jsonObject) {
-        Food food = new Food(jsonObject.getInt("id"),
-                jsonObject.getJSONObject("name").getString("fi"),
-                jsonObject.getDouble("carbohydrate"),
-                jsonObject.getDouble("alcohol"),
-                jsonObject.getDouble("organicAcids"),
-                jsonObject.getDouble("sugarAlcohol"),
-                jsonObject.getDouble("saturatedFat"),
-                jsonObject.getDouble("fiber"),
-                jsonObject.getDouble("sugar"),
-                jsonObject.getDouble("salt"),
-                jsonObject.getDouble("energy"),
-                jsonObject.getDouble("energyKcal"),
-                jsonObject.getDouble("fat"),
-                jsonObject.getDouble("protein")
-        );
+        Food food = new Food(jsonObject.getInt("id"), jsonObject.getJSONObject("name").getString("fi"));
+        food.setNutrient("carbohydrate", jsonObject.getDouble("carbohydrate"));
+        food.setNutrient("alcohol", jsonObject.getDouble("alcohol"));
+        food.setNutrient("organicAcids", jsonObject.getDouble("organicAcids"));
+        food.setNutrient("sugarAlcohol", jsonObject.getDouble("sugarAlcohol"));
+        food.setNutrient("saturatedFat", jsonObject.getDouble("saturatedFat"));
+        food.setNutrient("fiber", jsonObject.getDouble("fiber"));
+        food.setNutrient("sugar", jsonObject.getDouble("sugar"));
+        food.setNutrient("salt", jsonObject.getDouble("salt")/1000); // API returns salt in milligrams
+        food.setNutrient("energy", jsonObject.getDouble("energy"));
+        food.setNutrient("energyKcal", jsonObject.getDouble("energyKcal"));
+        food.setNutrient("fat", jsonObject.getDouble("fat"));
+        food.setNutrient("protein", jsonObject.getDouble("protein"));
+
         return food;
     }
 

@@ -2,15 +2,12 @@ package ui;
 
 import api.Fineli;
 import domain.Food;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -25,7 +22,7 @@ import javafx.stage.Stage;
 public class FoodDiaryUI extends Application {
     
     private Food food;
-    private Label foodName;
+    private PieChart nutrientData;
     
     private Scene searchScene;
     private Scene nutrientScene;
@@ -60,7 +57,8 @@ public class FoodDiaryUI extends Application {
         });
         results.setOnMouseClicked(e -> {
             food = results.getSelectionModel().getSelectedItem();
-            foodName.setText(food.getName());
+            nutrientData.setData(food.getBasicNutrients());
+            nutrientData.setTitle("Energiansaanti:\n" + food.getName());
             primaryStage.setScene(nutrientScene);
             System.out.println(food);
         });
@@ -92,9 +90,10 @@ public class FoodDiaryUI extends Application {
         
         VBox nutrientPane = new VBox(10);
         nutrientPane.setAlignment(Pos.CENTER);
-        foodName = new Label();
+        nutrientData = new PieChart();
+        nutrientData.setLegendVisible(false);
         
-        nutrientPane.getChildren().addAll(foodName); 
+        nutrientPane.getChildren().addAll(nutrientData); 
         nutrientAlignmentPane.setTop(createMenu(primaryStage, true, true));
         nutrientAlignmentPane.setCenter(nutrientPane);
         nutrientScene = new Scene(nutrientAlignmentPane, 600, 350);

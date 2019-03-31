@@ -35,7 +35,7 @@ public class FineliTest {
     
     @Test
     public void searchWithUnknownFoodReturnsEmptyList() {
-        foodList.add(new Food());
+        foodList.add(new Food(0, "placeholder"));
         foodList = Fineli.search("aFoodThatDefinitelyDoesNotExist");
         
         assertEquals(0, foodList.size());

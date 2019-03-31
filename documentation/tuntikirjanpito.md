@@ -9,4 +9,5 @@
 | 26.3 | 1 | Fineli API testit |
 | 27.3 | 1 | Hakutoiminnallisuus GUI |
 | 29.3 | 2 | Menu & ravintoainenäkymä |
-| yht   | 9 | | 
+| 31.3 | 1 | Ympyrädiagrammi ravintoainenäkymään |
+| yht   | 10 | | 
