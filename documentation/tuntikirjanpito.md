@@ -10,4 +10,5 @@
 | 27.3 | 1 | Hakutoiminnallisuus GUI |
 | 29.3 | 2 | Menu & ravintoainenäkymä |
 | 31.3 | 1 | Ympyrädiagrammi ravintoainenäkymään |
-| yht   | 10 | | 
+| 2.4 | 5 | Sovellus käyttää SQLite tietokantaa |
+| yht   | 15 | | 

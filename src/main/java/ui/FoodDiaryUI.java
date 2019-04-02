@@ -2,7 +2,13 @@ package ui;
 
 import api.Fineli;
 import domain.Food;
+import domain.FoodService;
+import dao.FoodDao;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,11 +26,19 @@ import javafx.stage.Stage;
 
 public class FoodDiaryUI extends Application {
     
+    private FoodService foodService;
+    
     private Food food;
     private PieChart nutrientData;
     
     private Scene searchScene;
     private Scene nutrientScene;
+    
+    @Override
+    public void init() throws SQLException {
+        FoodDao foodDao = new FoodDao("food.db");
+        this.foodService = new FoodService(foodDao);
+    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -92,7 +106,26 @@ public class FoodDiaryUI extends Application {
         nutrientData = new PieChart();
         nutrientData.setLegendVisible(false);
         
-        nutrientPane.getChildren().addAll(nutrientData); 
+        Label foodAdditionLabel = new Label("Ruoan paino (g)");
+        HBox foodAddition = new HBox(10);
+        foodAddition.setAlignment(Pos.CENTER);
+        
+        TextField foodAmountField = new TextField();
+        foodAmountField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                foodAmountField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        Button addFoodButton = new Button("Lisää");
+        addFoodButton.setOnAction(e -> {
+            if (foodAmountField.getText().isEmpty()) return;
+            foodService.save(food, Integer.parseInt(foodAmountField.getText()));
+            foodAmountField.clear();
+        });
+        foodAddition.getChildren().addAll(foodAmountField, addFoodButton);
+        
+        nutrientPane.getChildren().addAll(nutrientData, foodAdditionLabel, foodAddition); 
         nutrientAlignmentPane.setTop(createMenu(primaryStage, true, true));
         nutrientAlignmentPane.setCenter(nutrientPane);
         nutrientScene = new Scene(nutrientAlignmentPane, 600, 350);
