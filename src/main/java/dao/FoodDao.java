@@ -105,7 +105,6 @@ public class FoodDao {
         statement.close();
         int dateId = getDateId(date);
         connection.close();
-        System.out.println("dateid: " + dateId);
         
         return dateId;
     }
@@ -135,7 +134,6 @@ public class FoodDao {
         
         List<Food> foodList = new ArrayList<>();
         while (resultSet.next()) {
-            System.out.println("AMOUNT: " + resultSet.getInt("amount"));
             Food food = new Food(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("amount"));
             food.setNutrient("carbohydrate", resultSet.getDouble("carbohydrate"));
             food.setNutrient("alcohol", resultSet.getDouble("alcohol"));

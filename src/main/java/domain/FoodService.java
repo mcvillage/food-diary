@@ -16,8 +16,7 @@ public class FoodService {
     }
     
     public void saveWithCurrentDate(Food food, int amount) {
-        save(food, LocalDate.now(), amount);
-        
+        save(food, LocalDate.now(), amount);  
     }
     
     public void save(Food food, LocalDate date, int amount) {
@@ -25,6 +24,7 @@ public class FoodService {
             int foodId = this.foodDao.saveFood(food);
             int dateId = this.foodDao.saveDate(date);
             this.foodDao.saveFoodDate(foodId, dateId, amount);
+            System.out.println("Food [" + foodId + "], Date [" + dateId + "] successfully saved to database");
         } catch (SQLException ex) {
             System.out.println("Error when tried to save food");
             ex.printStackTrace();

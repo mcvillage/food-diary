@@ -40,8 +40,7 @@ public class Food {
     }
     
     public double getNutrient(String name) {
-        double grams = this.nutrients.getOrDefault(name, 0.0) * (this.amount / 100);
-        return grams;
+        return this.nutrients.getOrDefault(name, 0.0) * ((double) this.amount / 100);
     }
     
     public void setNutrient(String name, double amount) {

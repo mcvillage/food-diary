@@ -5,9 +5,7 @@ import domain.Food;
 import domain.FoodService;
 import dao.FoodDao;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -73,7 +71,6 @@ public class FoodDiaryUI extends Application {
             nutrientData.setData(food.getBasicNutrients());
             nutrientData.setTitle("Energiansaanti:\n" + food.getName());
             primaryStage.setScene(nutrientScene);
-            System.out.println(food);
         });
         
         TextField searchInput = new TextField();

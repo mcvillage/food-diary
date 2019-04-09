@@ -2,16 +2,11 @@ import dao.FoodDao;
 import domain.Food;
 import domain.FoodService;
 import java.io.File;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,7 +29,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    public void foodCanBeSaved() throws SQLException {
+    public void foodCanBeSavedWithCorrectDetails() throws SQLException {
         int id = 401;
         String name = "Omena, kuivattu";
         double carbohydrateAmount = 60.2;
@@ -45,8 +40,9 @@ public class FoodServiceTest {
         this.foodService.saveWithCurrentDate(food, amount);
 
         boolean found = false;
-        for (Food f : this.foodService.getFoodListByDate(LocalDate.now())) {
-            if (f.getId() > 0) {
+        List<Food> foodList = this.foodService.getFoodListByDate(LocalDate.now());
+        for (Food f : foodList) {
+            if (f.getId() == id && f.getAmount() == 50 && f.getNutrient("carbohydrate") == 30.1 && f.getName().equals(name)) {
                 found = true;
                 break;
             }

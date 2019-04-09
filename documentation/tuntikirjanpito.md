@@ -11,4 +11,6 @@
 | 29.3 | 2 | Menu & ravintoainenäkymä |
 | 31.3 | 1 | Ympyrädiagrammi ravintoainenäkymään |
 | 2.4 | 5 | Sovellus käyttää SQLite tietokantaa |
-| yht   | 15 | | 
+| 5.4 | 1 | Checkstyle & pieniä korjauksia |
+| 9.4 | 7 | DAO:n muokkaus & testit & dokumentaatio |
+| yht   | 23 | | 
