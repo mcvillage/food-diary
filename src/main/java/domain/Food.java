@@ -10,11 +10,20 @@ public class Food {
     private int id;
     private String name;   
     private HashMap<String, Double> nutrients;
+    private int amount;
 
     public Food(int id, String name) {
         this.id = id;
         this.name = name;
         this.nutrients = new HashMap<>();
+        this.amount = 100;
+    }
+    
+    public Food(int id, String name, int amount) {
+        this.id = id;
+        this.name = name;
+        this.nutrients = new HashMap<>();
+        this.amount = amount;
     }
 
 
@@ -25,9 +34,14 @@ public class Food {
     public String getName() {
         return name;
     }
+
+    public int getAmount() {
+        return amount;
+    }
     
     public double getNutrient(String name) {
-        return this.nutrients.getOrDefault(name, Double.NaN);
+        double grams = this.nutrients.getOrDefault(name, 0.0) * (this.amount / 100);
+        return grams;
     }
     
     public void setNutrient(String name, double amount) {

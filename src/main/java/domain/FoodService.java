@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
 import dao.FoodDao;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author valtteri
- */
 public class FoodService {
     
     private FoodDao foodDao;
@@ -21,13 +15,34 @@ public class FoodService {
         this.foodDao.initDatabase();
     }
     
-    public void save(Food food, int amount) {
+    public void saveWithCurrentDate(Food food, int amount) {
+        save(food, LocalDate.now(), amount);
+        
+    }
+    
+    public void save(Food food, LocalDate date, int amount) {
         try {
-            this.foodDao.save(food, amount);
+            int foodId = this.foodDao.saveFood(food);
+            int dateId = this.foodDao.saveDate(date);
+            this.foodDao.saveFoodDate(foodId, dateId, amount);
         } catch (SQLException ex) {
             System.out.println("Error when tried to save food");
             ex.printStackTrace();
         }
+    }
+    
+    public List<Food> getFoodListByDate(LocalDate date) {
+        List<Food> foodList = new ArrayList<>();
+        
+        try {
+            foodList = this.foodDao.getFoodListByDate(date);
+            
+        } catch (SQLException ex) {
+            System.out.println("Error when tried to get list of foods by date");
+            ex.printStackTrace();
+        }
+        
+        return foodList;
     }
     
 }

@@ -120,7 +120,7 @@ public class FoodDiaryUI extends Application {
         Button addFoodButton = new Button("Lisää");
         addFoodButton.setOnAction(e -> {
             if (foodAmountField.getText().isEmpty()) return;
-            foodService.save(food, Integer.parseInt(foodAmountField.getText()));
+            foodService.saveWithCurrentDate(food, Integer.parseInt(foodAmountField.getText()));
             foodAmountField.clear();
         });
         foodAddition.getChildren().addAll(foodAmountField, addFoodButton);

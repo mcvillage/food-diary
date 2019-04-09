@@ -58,7 +58,7 @@ public class Fineli {
         food.setNutrient("saturatedFat", jsonObject.getDouble("saturatedFat"));
         food.setNutrient("fiber", jsonObject.getDouble("fiber"));
         food.setNutrient("sugar", jsonObject.getDouble("sugar"));
-        food.setNutrient("salt", jsonObject.getDouble("salt")/1000); // API returns salt in milligrams
+        food.setNutrient("salt", jsonObject.getDouble("salt")/1000); //API returns salt in milligrams
         food.setNutrient("energy", jsonObject.getDouble("energy"));
         food.setNutrient("energyKcal", jsonObject.getDouble("energyKcal"));
         food.setNutrient("fat", jsonObject.getDouble("fat"));
