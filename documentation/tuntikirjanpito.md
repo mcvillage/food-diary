@@ -13,4 +13,5 @@
 | 2.4 | 5 | Sovellus käyttää SQLite tietokantaa |
 | 5.4 | 1 | Checkstyle & pieniä korjauksia |
 | 9.4 | 7 | DAO:n muokkaus & testit & dokumentaatio |
-| yht   | 23 | | 
+| 14.4 | 4 | Ruokapäiväkirjan viikkonäkymä |
+| yht   | 27 | | 

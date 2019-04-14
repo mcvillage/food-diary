@@ -16,17 +16,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Fineli {
-    
+
     public static List<Food> search(String keyword) {
         keyword = keyword.replaceAll("\\s+", "%20");
         String url = "https://fineli.fi/fineli/api/v1/foods?q=" + keyword;
-        
+
         try {
             InputStream is = new URL(url).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonString = readAll(rd);
             List<Food> foodList = convertToFoodList(new JSONArray(jsonString));
             is.close();
+            
+            System.out.println("Searched: " + keyword);
             return foodList;
         } catch (IOException ex) {
             System.out.println("Error in Fineli search");
@@ -34,12 +36,12 @@ public class Fineli {
             return new ArrayList<>();
         }
     }
-    
+
     public static ObservableList<Food> searchObservable(String keyword) {
         List<Food> foodList = search(keyword);
         return FXCollections.observableArrayList(foodList);
     }
-    
+
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -58,7 +60,7 @@ public class Fineli {
         food.setNutrient("saturatedFat", jsonObject.getDouble("saturatedFat"));
         food.setNutrient("fiber", jsonObject.getDouble("fiber"));
         food.setNutrient("sugar", jsonObject.getDouble("sugar"));
-        food.setNutrient("salt", jsonObject.getDouble("salt")/1000); //API returns salt in milligrams
+        food.setNutrient("salt", jsonObject.getDouble("salt") / 1000); //API returns salt in milligrams
         food.setNutrient("energy", jsonObject.getDouble("energy"));
         food.setNutrient("energyKcal", jsonObject.getDouble("energyKcal"));
         food.setNutrient("fat", jsonObject.getDouble("fat"));
@@ -75,5 +77,5 @@ public class Fineli {
         }
         return foodList;
     }
-    
+
 }
