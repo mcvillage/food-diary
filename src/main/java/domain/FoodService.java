@@ -57,11 +57,15 @@ public class FoodService {
     }
     
     public LocalDate getFirstDayOfWeek() {
-        if (date.getDayOfWeek() == DayOfWeek.MONDAY) return date;
+        if (date.getDayOfWeek() == DayOfWeek.MONDAY) {
+            return date;
+        }
+        
         LocalDate tempDate = date.plusDays(0);
         while (tempDate.minusDays(1).getDayOfWeek() != DayOfWeek.SUNDAY) {
             tempDate = tempDate.minusDays(1);
         }
+        
         return tempDate;
     }
     

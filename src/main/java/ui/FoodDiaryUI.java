@@ -93,7 +93,7 @@ public class FoodDiaryUI extends Application {
         
         Button searchButton = new Button("Hae");
         searchButton.setOnAction(e -> {
-            results.setItems(Fineli.searchObservable(searchInput.getText()));
+                results.setItems(Fineli.searchObservable(searchInput.getText()));
         });
         
         
@@ -231,7 +231,7 @@ public class FoodDiaryUI extends Application {
         weekDay.setStyle("-fx-font-weight: bold");
         weekDay.setTextFill(Color.WHITE);
         
-        Label dayAndMonth = new Label(date.getDayOfMonth() + "." + date.getMonthValue());
+        Label dayAndMonth = new Label(date.getDayOfMonth() + "." + date.getMonthValue() + ".");
         dayAndMonth.setTextFill(Color.WHITE);
         dayAndMonth.setPadding(new Insets(0, 0, 20, 0));
         

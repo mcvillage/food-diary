@@ -50,4 +50,63 @@ public class FoodServiceTest {
         
         assertTrue(found);
    }
-}
+    
+    @Test
+    public void foodCanBeSetToFoodService() {
+        int id = 401;
+        String name = "Omena, kuivattu";
+        Food food = new Food(id, name);
+        
+        foodService.setFood(food);
+        assertTrue(foodService.getFood().equals(food));
+    }
+    
+    @Test
+    public void dateCanBeSetToFoodService() {
+        LocalDate date = LocalDate.now();
+        
+        foodService.setDate(date);
+        assertTrue(foodService.getDate().isEqual(date));
+    }
+    
+    @Test
+    public void getFirstDayOfWeekReturnsMonday() {
+        LocalDate monday = LocalDate.of(2019, 4, 15);
+        LocalDate sunday = LocalDate.of(2019, 4, 21);
+        
+        foodService.setDate(monday);
+        LocalDate firstDayOfWeekMon = foodService.getFirstDayOfWeek();
+        
+        foodService.setDate(sunday);
+        LocalDate firstDayOfWeekSun = foodService.getFirstDayOfWeek();
+        
+        assertTrue(firstDayOfWeekMon.isEqual(monday));
+        assertTrue(firstDayOfWeekSun.isEqual(monday));
+    }
+    
+    @Test
+    public void getDayOfWeekNameReturnsCorrectName() {
+        LocalDate monday = LocalDate.of(2019, 4, 15);
+        
+        assertTrue(foodService.getDayOfWeekName(monday).equals("Ma"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(1)).equals("Ti"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(2)).equals("Ke"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(3)).equals("To"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(4)).equals("Pe"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(5)).equals("La"));
+        assertTrue(foodService.getDayOfWeekName(monday.plusDays(6)).equals("Su"));
+    }
+    
+    @Test
+    public void getTotalCaloriesByDateReturnsCorrectSum() {
+        LocalDate date = LocalDate.of(1815, 12, 10);
+
+        Food food = new Food(401, "Omena, kuivattu");
+        food.setNutrient("energyKcal", 275);
+        
+        foodService.save(food, date, 200);
+        
+        assertEquals(2 * 275L, foodService.getTotalCaloriesByDate(date));
+        
+    }
+ }

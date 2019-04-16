@@ -66,5 +66,22 @@ public class Food {
         
         return pieChartData;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+        
+        Food food = (Food) object;
+        
+        return food.getId() == this.id;
+    }
+    
+    
     
 }

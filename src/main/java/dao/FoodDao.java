@@ -20,6 +20,12 @@ public class FoodDao {
     }
     
     public void initDatabase() throws SQLException {
+        initDateTable();
+        initFoodTable();
+        initFoodDateTable();
+    }
+    
+    private void initDateTable() throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement createDateTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS date ("
                 + "id INTEGER PRIMARY KEY,"
@@ -28,7 +34,11 @@ public class FoodDao {
         );
         createDateTable.execute();
         createDateTable.close();
-        
+        connection.close();
+    }
+    
+    private void initFoodTable() throws SQLException {
+        Connection connection = getConnetion();
         PreparedStatement createFoodTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS food ("
                 + "id INTEGER PRIMARY KEY,"
                 + "name VARCHAR(255), "
@@ -48,7 +58,11 @@ public class FoodDao {
         );
         createFoodTable.execute();
         createFoodTable.close();
-        
+        connection.close();
+    }
+    
+    private void initFoodDateTable() throws SQLException {
+        Connection connection = getConnetion();
         PreparedStatement createFoodDateTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS fooddate ("
                 + "food_id INTEGER,"
                 + "date_id INTEGER ,"
@@ -61,7 +75,6 @@ public class FoodDao {
         createFoodDateTable.execute();
         createFoodDateTable.close();
         connection.close();
-        
     }
     
     public int saveFood(Food food) throws SQLException {

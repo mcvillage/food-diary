@@ -9,6 +9,10 @@ Ruokapäiväkirjan avulla käyttäjä voi pitää kirjaa päivittäisistä ravin
 
 [Arkkitehtuurikuvaus](https://github.com/valtterikodisto/food-diary/blob/master/documentation/arkkitehtuuri.md)
 
+## Releaset
+
+[Viikko 5](https://github.com/valtterikodisto/food-diary/releases/tag/viikko5)
+
 ## Komentorivitoiminnot
 
 ### Suoritettavan JAR tiedoston luonti
@@ -16,13 +20,13 @@ Ruokapäiväkirjan avulla käyttäjä voi pitää kirjaa päivittäisistä ravin
 Jar-tiedoston voi luoda seuraavalla komennolla projektin juuressa:
 
 ```bash
-mvn assembly:assembly -DdescriptorId=jar-with-dependencies
+mvn package
 ```
 
 Jar-tiedoston suorittaminen tapahtuu seuraavasti:
 
 ```bash
-java -jar target/FoodDiary-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target/FoodDiary-1.0-SNAPSHOT.jar
 ```
 
 ### Testaus
