@@ -47,6 +47,10 @@ public class Food {
         this.nutrients.put(name, amount);
     }
     
+    /**
+     * Calculates percentual values of nutrients
+     * @return list of nutrients that can be set to PieChart
+     */
     public ObservableList<PieChart.Data> getBasicNutrients() {
         // Energy percent
         double energy = getNutrient("energy");

@@ -356,7 +356,7 @@ public class FoodDiaryUI extends Application {
             setGraphic(null);
 
             if (food != null && !empty) {
-                label.setText(food.getName());
+                label.setText(food.getAmount() + "g, " + food.getName());
                 setGraphic(hbox);
             }
         }

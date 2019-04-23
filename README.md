@@ -3,6 +3,8 @@ Ruokapäiväkirjan avulla käyttäjä voi pitää kirjaa päivittäisistä ravin
 
 
 ## Dokumentaatio
+[Käyttöohje](https://github.com/valtterikodisto/food-diary/blob/master/documentation/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/valtterikodisto/food-diary/blob/master/documentation/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/valtterikodisto/food-diary/blob/master/documentation/tuntikirjanpito.md)

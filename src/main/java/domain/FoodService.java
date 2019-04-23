@@ -23,11 +23,11 @@ public class FoodService {
         this.food = new Food(-1, "default");
         this.date = LocalDate.now();
     }
-
+    
     public Food getFood() {
         return food;
     }
-
+    
     public void setFood(Food food) {
         this.food = food;
     }
@@ -36,6 +36,12 @@ public class FoodService {
         return date;
     }
     
+    /**
+     * Gets a finnish abbreviation for the day of the week.
+     * Example: 2019-04-24 => "Ke"
+     * @param date the date to be used
+     * @return two-letter day of the week
+     */
     public String getDayOfWeekName(LocalDate date) {
         
         switch (date.getDayOfWeek().getValue()) {
@@ -60,6 +66,10 @@ public class FoodService {
         this.date = date;
     }
     
+    /**
+     * Returns Monday of the week by using previously set date.
+     * @return Monday of the week
+     */
     public LocalDate getFirstDayOfWeek() {
         if (date.getDayOfWeek() == DayOfWeek.MONDAY) {
             return date;
@@ -73,10 +83,22 @@ public class FoodService {
         return tempDate;
     }
     
+    /**
+     * Saves the food with provided amount to the database. 
+     * Date will be set to the current date.
+     * @param food food that will be saved
+     * @param amount amount of food in grams
+     */
     public void saveWithCurrentDate(Food food, int amount) {
         save(food, LocalDate.now(), amount);  
     }
     
+    /**
+     * Saves the food with provided amount to the database by date.
+     * @param food food that will be saved
+     * @param date date
+     * @param amount amount of food in grams
+     */
     public void save(Food food, LocalDate date, int amount) {
         try {
             int foodId = this.foodDao.saveFood(food);
@@ -88,6 +110,11 @@ public class FoodService {
         }
     }
     
+    /**
+     * Removes the meal from a specific date from the database.
+     * @param food food that will be removed
+     * @param date date when the food was eaten
+     */
     public void removeEntry(Food food, LocalDate date) {
         try {
             this.foodDao.removeEntry(food, date);

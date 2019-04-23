@@ -16,6 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Fineli {
+    
+    /**
+     * Searches a food from Fineli API
+     * @param keyword a keyword which is used when searching a food
+     * @return list of Foods
+     */
 
     public static List<Food> search(String keyword) {
         keyword = keyword.replaceAll("\\s+", "%20");
@@ -36,6 +42,12 @@ public class Fineli {
             return new ArrayList<>();
         }
     }
+    
+    /**
+     * Searches a food from Fineli API
+     * @param keyword a keyword which is used when searching a food
+     * @return list of Foods
+     */
 
     public static ObservableList<Food> searchObservable(String keyword) {
         List<Food> foodList = search(keyword);

@@ -18,7 +18,10 @@ public class FoodDao {
     public FoodDao(String database) {
         this.database = database;
     }
-    
+    /**
+     * Initializes database by creating necessary tables.
+     * @throws SQLException 
+     */
     public void initDatabase() throws SQLException {
         initDateTable();
         initFoodTable();
@@ -77,6 +80,13 @@ public class FoodDao {
         connection.close();
     }
     
+    /**
+     * Saves food to SQLite database and if the food has already 
+     * been saved updates the amount of that food.
+     * @param food food that will be saved
+     * @return id of the food
+     * @throws SQLException 
+     */
     public int saveFood(Food food) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement saveFood = connection.prepareStatement("INSERT INTO food\n"
@@ -106,7 +116,12 @@ public class FoodDao {
         return food.getId();
         
     }
-    
+    /**
+     * Removes the entry by date
+     * @param food food that was eaten.
+     * @param date date
+     * @throws SQLException 
+     */
     public void removeEntry(Food food, LocalDate date) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement remove = connection.prepareStatement("DELETE FROM fooddate\n"
@@ -119,6 +134,12 @@ public class FoodDao {
         connection.close();
     }
     
+    /**
+     * Saves a new date to the database.
+     * @param date date that will be saved
+     * @return id of the date
+     * @throws SQLException 
+     */
     public int saveDate(LocalDate date) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement statement = connection.prepareStatement("INSERT INTO date(date)\n"
@@ -134,6 +155,13 @@ public class FoodDao {
         return dateId;
     }
     
+    /**
+     * Saves the entry (how much food and when) to the database.
+     * @param foodId id of the food
+     * @param dateId id of the date
+     * @param amount amount of the food in grams
+     * @throws SQLException 
+     */
     public void saveFoodDate(int foodId, int dateId, int amount) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement saveFoodDate = connection.prepareStatement("INSERT OR REPLACE INTO fooddate (food_id, date_id, amount)\n"
