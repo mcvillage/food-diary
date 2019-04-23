@@ -6,12 +6,19 @@ import domain.FoodService;
 import dao.FoodDao;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -20,6 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,17 +42,22 @@ public class FoodDiaryUI extends Application {
     private PieChart nutrientData;
     private Label weekLabel;
     private HBox weekDayBox;
+    private BarChart<String, Number> barChart;
+    private ListView<Food> foodsOfTheDay;
     
+    private Stage primaryStage;
     private Scene searchScene;
     private Scene nutrientScene;
     private Scene foodDiaryScene;
+    private Scene foodDiaryDayScene;
+    
     private int[] dimensions;
     
     @Override
     public void init() throws SQLException {
         FoodDao foodDao = new FoodDao("food.db");
         this.foodService = new FoodService(foodDao);
-        this.dimensions = new int[] {600, 350};
+        this.dimensions = new int[] {750, 450};
         this.weekDayBox = new HBox(1);
         this.weekDayBox.setAlignment(Pos.CENTER);
         createWeekDayBox(foodService.getFirstDayOfWeek());
@@ -51,6 +65,8 @@ public class FoodDiaryUI extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        
         // Search Scene
         
         BorderPane searchAlignmentPane = new BorderPane();
@@ -180,6 +196,31 @@ public class FoodDiaryUI extends Application {
         foodDiaryAlignmentPane.setCenter(foodDiaryPane);
         foodDiaryScene = new Scene(foodDiaryAlignmentPane, dimensions[0], dimensions[1]);
         
+        // Food Diary Day Scene
+        
+        BorderPane foodDiaryDayAlignmentPane = new BorderPane();
+        VBox foodDiaryDayPane = new VBox(10);
+        foodDiaryDayPane.setAlignment(Pos.CENTER);
+        
+        HBox foodDiaryDayInfo = new HBox(10);
+        
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        barChart = new BarChart<String, Number>(xAxis, yAxis);
+        barChart.setTitle("Ravintoaineiden yhteenveto");
+        xAxis.setLabel("Ravintoaine");
+        yAxis.setLabel("Määrä (g)");
+        
+        foodsOfTheDay = new ListView<>();
+        foodsOfTheDay.setCellFactory(param -> new XCell(foodService, barChart, foodsOfTheDay));
+        
+        foodDiaryDayInfo.getChildren().addAll(barChart, foodsOfTheDay);
+        foodDiaryDayPane.getChildren().addAll(foodDiaryDayInfo);
+        
+        foodDiaryDayAlignmentPane.setTop(createMenu(primaryStage, true, true));
+        foodDiaryDayAlignmentPane.setCenter(foodDiaryDayPane);
+        foodDiaryDayScene = new Scene(foodDiaryDayAlignmentPane, dimensions[0], dimensions[1]);
+        
         // Setup Primary Stage
         
         primaryStage.setTitle("Ruokapäiväkirja");
@@ -251,12 +292,95 @@ public class FoodDiaryUI extends Application {
         mask.setFill(Color.TRANSPARENT);
         
         mask.setOnMouseClicked(e -> {
-            // TODO: CHANGE SCENE
-            System.out.println("TODO");
+            foodService.setDate(date);
+            updateBarChart();
+            primaryStage.setScene(foodDiaryDayScene);
         });
         
         weekDayPane.getChildren().addAll(weekDayBackgroundBlock, dayBlockText, mask);
         return weekDayPane;
+    }
+    
+    public void updateBarChart() {
+        Map<String, Double> foodDataDay = foodService.getNutrientsByDate(foodService.getDate());
+        XYChart.Series series1 = new XYChart.Series();
+        series1.getData().add(new XYChart.Data("hiilihydraatti", foodDataDay.getOrDefault("carbohydrate", 0.0)));
+        series1.getData().add(new XYChart.Data("sokeri", foodDataDay.getOrDefault("sugar", 0.0)));
+        series1.getData().add(new XYChart.Data("proteiini", foodDataDay.getOrDefault("protein", 0.0)));
+        series1.getData().add(new XYChart.Data("rasva", foodDataDay.getOrDefault("fat", 0.0)));
+        series1.getData().add(new XYChart.Data("tyydyttyneet rasvahapot", foodDataDay.getOrDefault("saturatedFat", 0.0)));
+        series1.getData().add(new XYChart.Data("suola", foodDataDay.getOrDefault("salt", 0.0)));
+        series1.getData().add(new XYChart.Data("kuitu", foodDataDay.getOrDefault("fiber", 0.0)));
+        series1.getData().add(new XYChart.Data("orgaaniset hapot", foodDataDay.getOrDefault("organicAcids", 0.0)));
+        series1.getData().add(new XYChart.Data("sokerialkoholi", foodDataDay.getOrDefault("sugarAlcohol", 0.0)));
+        series1.getData().add(new XYChart.Data("alkoholi", foodDataDay.getOrDefault("alcohol", 0.0)));
+
+        barChart.getData().clear();
+        barChart.getData().add(series1);
+        barChart.setTitle("Ravintoaineiden yhteenveto " + foodService.getDate().toString());
+
+        foodsOfTheDay.setItems(FXCollections.observableArrayList(foodService.getFoodListByDate(foodService.getDate())));
+    }
+    
+    static class XCell extends ListCell<Food> {
+
+        HBox hbox = new HBox(5);
+        Label label = new Label("");
+        Pane pane = new Pane();
+        Button button = new Button("Poista");
+        
+        private FoodService foodService;
+        private BarChart barChart;
+        private ListView<Food> foodsOfTheDay;
+
+        public XCell(FoodService foodService, BarChart barChart, ListView<Food> foodsOfTheDay) {
+            super();
+            this.foodService = foodService;
+            this.barChart = barChart;
+            this.foodsOfTheDay = foodsOfTheDay;
+            
+            hbox.getChildren().addAll(button, label, pane);
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            button.setOnAction(e -> {
+                foodService.removeEntry(getItem(), foodService.getDate());
+                getListView().getItems().remove(getItem());
+                updateBarChart();
+                
+            });
+        }
+
+        @Override
+        protected void updateItem(Food food, boolean empty) {
+            super.updateItem(food, empty);
+            setText(null);
+            setGraphic(null);
+
+            if (food != null && !empty) {
+                label.setText(food.getName());
+                setGraphic(hbox);
+            }
+        }
+        
+        public void updateBarChart() {
+            Map<String, Double> foodDataDay = foodService.getNutrientsByDate(foodService.getDate());
+            XYChart.Series series1 = new XYChart.Series();
+            series1.getData().add(new XYChart.Data("hiilihydraatti", foodDataDay.getOrDefault("carbohydrate", 0.0)));
+            series1.getData().add(new XYChart.Data("sokeri", foodDataDay.getOrDefault("sugar", 0.0)));
+            series1.getData().add(new XYChart.Data("proteiini", foodDataDay.getOrDefault("protein", 0.0)));
+            series1.getData().add(new XYChart.Data("rasva", foodDataDay.getOrDefault("fat", 0.0)));
+            series1.getData().add(new XYChart.Data("tyydyttyneet rasvahapot", foodDataDay.getOrDefault("saturatedFat", 0.0)));
+            series1.getData().add(new XYChart.Data("suola", foodDataDay.getOrDefault("salt", 0.0)));
+            series1.getData().add(new XYChart.Data("kuitu", foodDataDay.getOrDefault("fiber", 0.0)));
+            series1.getData().add(new XYChart.Data("orgaaniset hapot", foodDataDay.getOrDefault("organicAcids", 0.0)));
+            series1.getData().add(new XYChart.Data("sokerialkoholi", foodDataDay.getOrDefault("sugarAlcohol", 0.0)));
+            series1.getData().add(new XYChart.Data("alkoholi", foodDataDay.getOrDefault("alcohol", 0.0)));
+
+            barChart.getData().clear();
+            barChart.getData().add(series1);
+            barChart.setTitle("Ravintoaineiden yhteenveto " + foodService.getDate().toString());
+
+            foodsOfTheDay.setItems(FXCollections.observableArrayList(foodService.getFoodListByDate(foodService.getDate())));
+        }
     }
     
     /**

@@ -5,7 +5,11 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FoodService {
     
@@ -81,8 +85,17 @@ public class FoodService {
             System.out.println("Food [" + foodId + "], Date [" + dateId + "] successfully saved to database");
         } catch (SQLException ex) {
             System.out.println("Error when tried to save food");
-            ex.printStackTrace();
         }
+    }
+    
+    public void removeEntry(Food food, LocalDate date) {
+        try {
+            this.foodDao.removeEntry(food, date);
+        } catch (SQLException ex) {
+            System.out.println("Error when tried to remove entry");
+        }
+        
+        System.out.println("REMOVED " + food.getName());
     }
     
     public List<Food> getFoodListByDate(LocalDate date) {
@@ -93,7 +106,6 @@ public class FoodService {
             
         } catch (SQLException ex) {
             System.out.println("Error when tried to get list of foods by date");
-            ex.printStackTrace();
         }
         
         return foodList;
@@ -106,6 +118,30 @@ public class FoodService {
             sum += food.getNutrient("energyKcal");
         }
         return Math.round(sum);
+    }
+    
+    public Map<String, Double> getNutrientsByDate(LocalDate date) {
+        List<Food> foodList = getFoodListByDate(date);
+        Map<String, Double> foodMap = new HashMap<>();
+        
+        for (Food food : foodList) {
+            addNutrientToFoodMap(foodMap, food, "carbohydrate");
+            addNutrientToFoodMap(foodMap, food, "alcohol");
+            addNutrientToFoodMap(foodMap, food, "organicAcids");
+            addNutrientToFoodMap(foodMap, food, "sugarAlcohol");
+            addNutrientToFoodMap(foodMap, food, "saturatedFat");
+            addNutrientToFoodMap(foodMap, food, "fiber");
+            addNutrientToFoodMap(foodMap, food, "sugar");
+            addNutrientToFoodMap(foodMap, food, "salt");
+            addNutrientToFoodMap(foodMap, food, "fat");
+            addNutrientToFoodMap(foodMap, food, "protein");
+        }
+        
+        return foodMap;
+    }
+    
+    private void addNutrientToFoodMap(Map<String, Double> foodMap, Food food, String nutrient) {
+        foodMap.put(nutrient, foodMap.getOrDefault(nutrient, 0.0) + food.getNutrient(nutrient));
     }
     
 }

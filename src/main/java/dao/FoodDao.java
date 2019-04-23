@@ -107,6 +107,18 @@ public class FoodDao {
         
     }
     
+    public void removeEntry(Food food, LocalDate date) throws SQLException {
+        Connection connection = getConnetion();
+        PreparedStatement remove = connection.prepareStatement("DELETE FROM fooddate\n"
+                + "WHERE fooddate.food_id = ? AND fooddate.date_id = (SELECT date.id as id FROM date WHERE date.date = ?)");
+        remove.setInt(1, food.getId());
+        remove.setDate(2, Date.valueOf(date));
+        
+        remove.executeUpdate();
+        remove.close();
+        connection.close();
+    }
+    
     public int saveDate(LocalDate date) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement statement = connection.prepareStatement("INSERT INTO date(date)\n"
