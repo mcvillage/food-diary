@@ -14,6 +14,7 @@ Ruokapäiväkirjan avulla käyttäjä voi pitää kirjaa päivittäisistä ravin
 ## Releaset
 
 [Viikko 5](https://github.com/valtterikodisto/food-diary/releases/tag/viikko5)
+
 [Viikko 6](https://github.com/valtterikodisto/food-diary/releases/tag/1.0)
 
 ## Komentorivitoiminnot
