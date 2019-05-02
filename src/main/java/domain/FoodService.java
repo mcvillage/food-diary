@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Provides methods to easily create, read, update and
+ * delete entries from database.
+ */
 public class FoodService {
     
     private FoodDao foodDao;
@@ -38,28 +40,15 @@ public class FoodService {
     
     /**
      * Gets a finnish abbreviation for the day of the week.
-     * Example: 2019-04-24 => "Ke"
+     * Example: 2019-04-24 will return "Ke"
      * @param date the date to be used
      * @return two-letter day of the week
      */
     public String getDayOfWeekName(LocalDate date) {
+        if (date == null) return "NotADate";
         
-        switch (date.getDayOfWeek().getValue()) {
-            case 1:
-                return "Ma";
-            case 2:
-                return "Ti";
-            case 3:
-                return "Ke";
-            case 4:
-                return "To";
-            case 5:
-                return "Pe";
-            case 6:
-                return "La";
-            default:
-                return "Su";
-        }
+        String[] dayOfWeeks = new String[]{"Ma", "Ti", "Ke", "To", "Pe", "La", "Su"};
+        return dayOfWeeks[date.getDayOfWeek().getValue() - 1];
     }
 
     public void setDate(LocalDate date) {
@@ -124,7 +113,11 @@ public class FoodService {
         
         System.out.println("REMOVED " + food.getName());
     }
-    
+    /**
+     * Returns a list of foods from a specific date
+     * @param date date which will be used to get the foods
+     * @return list of foods
+     */
     public List<Food> getFoodListByDate(LocalDate date) {
         List<Food> foodList = new ArrayList<>();
         
@@ -138,6 +131,11 @@ public class FoodService {
         return foodList;
     }
     
+    /**
+     * Sums all the calories from a specific date
+     * @param date date which will be used to get the foods
+     * @return rounded value of calories
+     */
     public long getTotalCaloriesByDate(LocalDate date) {
         List<Food> foodList = getFoodListByDate(date);
         double sum = 0;
@@ -146,7 +144,12 @@ public class FoodService {
         }
         return Math.round(sum);
     }
-    
+    /**
+     * Sums all the nutrients from a specific date. Results will be
+     * saved in a map (ex. "carbohydrate" is mapped to 432.4)
+     * @param date date which will be used to get the nutrients
+     * @return A map with summary of nutrients
+     */
     public Map<String, Double> getNutrientsByDate(LocalDate date) {
         List<Food> foodList = getFoodListByDate(date);
         Map<String, Double> foodMap = new HashMap<>();

@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides methods to handle different database operations.
+ */
 public class FoodDao {
     
     private String database;
@@ -20,7 +23,6 @@ public class FoodDao {
     }
     /**
      * Initializes database by creating necessary tables.
-     * @throws SQLException 
      */
     public void initDatabase() throws SQLException {
         initDateTable();
@@ -85,7 +87,6 @@ public class FoodDao {
      * been saved updates the amount of that food.
      * @param food food that will be saved
      * @return id of the food
-     * @throws SQLException 
      */
     public int saveFood(Food food) throws SQLException {
         Connection connection = getConnetion();
@@ -119,8 +120,7 @@ public class FoodDao {
     /**
      * Removes the entry by date
      * @param food food that was eaten.
-     * @param date date
-     * @throws SQLException 
+     * @param date date 
      */
     public void removeEntry(Food food, LocalDate date) throws SQLException {
         Connection connection = getConnetion();
@@ -138,7 +138,6 @@ public class FoodDao {
      * Saves a new date to the database.
      * @param date date that will be saved
      * @return id of the date
-     * @throws SQLException 
      */
     public int saveDate(LocalDate date) throws SQLException {
         Connection connection = getConnetion();
@@ -160,7 +159,6 @@ public class FoodDao {
      * @param foodId id of the food
      * @param dateId id of the date
      * @param amount amount of the food in grams
-     * @throws SQLException 
      */
     public void saveFoodDate(int foodId, int dateId, int amount) throws SQLException {
         Connection connection = getConnetion();
@@ -175,7 +173,11 @@ public class FoodDao {
         saveFoodDate.executeUpdate();
         connection.close();
     }
-    
+    /**
+     * Returns a list of foods from a specific date
+     * @param date date which will be used to get the foods
+     * @return list of foods
+     */
     public List<Food> getFoodListByDate(LocalDate date) throws SQLException {
         Connection connection = getConnetion();
         PreparedStatement statement = connection.prepareStatement("SELECT fooddate.amount, food.* FROM fooddate\n"
@@ -227,7 +229,10 @@ public class FoodDao {
 
         return id;
     }
-    
+    /**
+     * Connects to the database
+     * @return connection to the database
+     */
     public Connection getConnetion() throws SQLException {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         if (dbUrl != null && dbUrl.length() > 0) {

@@ -38,6 +38,13 @@ FoodServicen ja ohjelman muiden osien suhdetta kuvaava luokka/pakkauskaavio:
 
 <img src="https://raw.githubusercontent.com/valtterikodisto/food-diary/master/documentation/pictures/pakkauskaavio.png">
 
+## Tietojen pysyväistalletus
+<img src="https://raw.githubusercontent.com/valtterikodisto/food-diary/master/documentation/pictures/database.png">
+
+Tietokantaan talennetaan FoodDaon avulla Finelin API:sta haetut ravintoainearvot sekä päivämäärä, jona ruoka on 
+syöty. Tietokantataulut Food ja Date ovat yhdistetty liitostaululla FoodDate, joka pitää sisällään myös ruoan 
+määrän grammoina kyseiseltä päivältä.
+
 ## Päätoiminnallisuudet
 
 ### Ravintoainepympyrädiagrammin näyttäminen
@@ -54,3 +61,15 @@ asettaa valitun ruoan käyttäen FoodServicen setFood -metodia. Käyttöliittym�
 näkymän NutrientSceneen. Käyttöliittymä hakee FoodServiceltä ruoan käyttäen getFood -metodia. 
 Ruoan ravintoarvot käyttöliittymä hakee kutsumalla Food -luokan metodia getBasicNutrients, joka 
 palauttaa listan ravintoaineiden prosenttiosuuksia, joista käyttöliittymä rakentaa ympyrädiagrammin.
+
+Tästä näkymästä voidaan tallentaa kyseinen elintarvike sekä sen määrä tietokantaan. Tapahtuma 
+etenee seuraavasti:
+
+<img src="https://raw.githubusercontent.com/valtterikodisto/food-diary/master/documentation/pictures/sekvenssikaavio-2.png">
+
+Käyttäjän klikatessa 'Lisää' painiketta, sen tapahtumakäsittelijä kutsuu FoodServicen metodia saveWithCurrentDate(). Metodille 
+annetaan parametrina käyttöliittymältä saatu elintarvike sekä sen paino. FoodService kutsuu FoodDaon metodia saveFood() 
+käyttöliittymältä saadullaan elintarvikkeella. FoodDao tallettaa tuon tietokantaan ja palauttaa kyseisen elintarvikkeen id:n, 
+jota käytetään myöhemmin liitostaulussa. Sama tehdään myös päivämääräälle, jonka LocalDate luokan metodi now() palauttaa. 
+Lopuksi liitostauluun FoodDate tallennetaan (tai päivitetään mikäli samalta päivältä löytyi kyseinen ruoka) paino käyttäen 
+metodia saveFoodDate().

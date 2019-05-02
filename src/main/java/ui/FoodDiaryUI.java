@@ -10,7 +10,6 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -213,7 +212,7 @@ public class FoodDiaryUI extends Application {
         
         foodsOfTheDay = new ListView<>();
         foodsOfTheDay.setCellFactory(param -> new XCell(foodService, barChart, foodsOfTheDay));
-        
+
         foodDiaryDayInfo.getChildren().addAll(barChart, foodsOfTheDay);
         foodDiaryDayPane.getChildren().addAll(foodDiaryDayInfo);
         
@@ -293,6 +292,7 @@ public class FoodDiaryUI extends Application {
         
         mask.setOnMouseClicked(e -> {
             foodService.setDate(date);
+            foodsOfTheDay.setCellFactory(param -> new XCell(foodService, barChart, foodsOfTheDay));
             updateBarChart();
             primaryStage.setScene(foodDiaryDayScene);
         });

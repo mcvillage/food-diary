@@ -1,6 +1,10 @@
 # Käyttöohje
 
 ## Ohjelman käynnistäminen
+Ladattuasi viimeisimmän version ruokapäiväkirjasta, suorita seuraava komento juurikansiossa:
+```bash
+java -jar fooddiary.jar
+```
 
 ## Ruoan hakeminen
 Sovellus käynnistyy hakunäkymään:

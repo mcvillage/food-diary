@@ -5,6 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
+/**
+ * A class to save all the data from the API and database.
+ */
 public class Food {
     
     private int id;
@@ -39,6 +42,11 @@ public class Food {
         return amount;
     }
     
+    /**
+     * Calculates and returns the amount of nutrient in the food in grams.
+     * @param name name of the nutrient (ex. "carbohydrate")
+     * @return amount of nutrient in grams
+     */
     public double getNutrient(String name) {
         return this.nutrients.getOrDefault(name, 0.0) * ((double) this.amount / 100);
     }

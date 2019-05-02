@@ -15,6 +15,7 @@
 | 9.4. | 7 | DAO:n muokkaus & testit & dokumentaatio |
 | 14.4. | 4 | Ruokapäiväkirjan viikkonäkymä |
 | 16.4. | 2 | FoodService testit & dokumentaatio |
-| 23.4 | 5 | Päivän yhteenvetonäkymä |
-| 24.4 | 2 | Dokumentaatio |
-| yht   | 36 | |
+| 23.4. | 5 | Päivän yhteenvetonäkymä |
+| 24.4. | 2 | Dokumentaatio |
+| 2.5. | 3 | Dokumentaatio & pieniä korjauksia logiikkaan |
+| yht   | 39 | |

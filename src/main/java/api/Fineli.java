@@ -15,6 +15,9 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Provides an easy access to Fineli's API to search for foods.
+ */
 public class Fineli {
     
     /**

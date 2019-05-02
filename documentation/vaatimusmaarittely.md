@@ -11,7 +11,7 @@ Ruokapäiväkirjasta voi siirtyä valitun päivän yhteenvetoon.
 
 ## Toiminnallisuudet
 - Käyttäjä voi hakea elintarvikkeita ja tarkastella niiden ravintosisältöä
-  - Haku tapahtuu Finellin tarjoaman API:n kautta
+- Haku tapahtuu Finellin tarjoaman API:n kautta
 - Käyttäjä voi lisätä elintarvikkeen ja määrän ruokapäiväkirjaan
 - Käyttäjä voi poistaa elintarvikkeen ruokapäiväkirjasta
 - Käyttäjä näkee lyhyen yhteenvedon viikosta
@@ -19,7 +19,7 @@ Ruokapäiväkirjasta voi siirtyä valitun päivän yhteenvetoon.
 
 ## Jatkokehitysideoita
 - Ravintosisältöyhteenvedoissa näkyy päivittäinen saantisuositus
-- Hakupalkkiin autocomplete -tyylinen totetus (tämä voisi olla hyvä toteuttaa ihan perusversiossa)
+- Hakupalkkiin autocomplete -tyylinen totetus
 - Ruokapäiväkirjassa olevan elintarvikkeen määrän (paino, tilavuus,...) muuttaminen
 - Ruokapäiväkirjassa olevien ruokien jaoettelu aamupalaan, lounaaseen, välipalaan, päivälliseen tai iltapalaan
 - Enemmän ravintoaineita huomioon
